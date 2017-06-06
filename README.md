@@ -2,7 +2,7 @@
 
 This directory is a sampling of what I have in ```/Users/me/Library/Application Support/MailMate/Resources```
 
-My customizations to [MailMate]((https://freron.com) Resource files to:
+My customizations to [MailMate](https://freron.com) Resource files to:
 
 * Customized header layout
   * Display Sender header prominently
@@ -33,9 +33,9 @@ Default icons (user, users, cvs, jira) are mostly colored PNG versions of [Font 
 
 Of course replace all ```/Users/me/``` with your home directory.
 
-Uses [Favicon Finder](https://icons.better-idea.org) which I have found works best. You can see other options commented out in the code. Also Favicon Finder is open-source and you can run it locally if you like.
+Uses [Besticon](https://icons.better-idea.org) for Favicons which I have found works best. You can see other options commented out in the code. Also Favicon Finder is [open-source](https://github.com/mat/besticon) and you can run it locally if you like.
 
-[MD5 script](http://www.myersdaily.org/joseph/javascript/md5.js) included inline in ```custom.js``` because I couldn't get it to work from its own script file.
+[MD5 script](http://www.myersdaily.org/joseph/javascript/md5-text.html) included inline in ```custom.js``` because I couldn't get it to work from its own script file.
 
 # Examples
 
