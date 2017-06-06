@@ -1,7 +1,5 @@
 # Mailmate Resources
 
-![Example 1](ex1.png) | ![Example 2](ex2.png)
-
 This directory is a sampling of what I have in ```/Users/me/Library/Application Support/MailMate/Resources```
 
 My customizations to [MailMate]((https://freron.com) Resource files to:
@@ -38,4 +36,12 @@ Of course replace all ```/Users/me/``` with your home directory.
 Uses [Favicon Finder](https://icons.better-idea.org) which I have found works best. You can see other options commented out in the code. Also Favicon Finder is open-source and you can run it locally if you like.
 
 [MD5 script](http://www.myersdaily.org/joseph/javascript/md5.js) included inline in ```custom.js``` because I couldn't get it to work from its own script file.
+
+# Examples
+
+![Example 1](ex1.png)
+
+---
+
+![Example 2](ex2.png)
 
