@@ -23,9 +23,9 @@ My customizations to [MailMate](https://freron.com) Resource files to:
       * Otherwise avatar displayed to right of each recipient name
       
 * Customized Message Verifications
-  * * Catch replies to tool accounts (JIRA, CVS)
-  * * Don't respond via home email to a previously used work recipient (and vice versa)
-  * * If a new recipient make sure to send from home/work properly
+  * Catch replies to tool accounts (JIRA, CVS)
+  * Don't respond via home email to a previously used work recipient (and vice versa)
+  * If a new recipient make sure to send from home/work properly
 
 Uses [jQuery](https://jquery.com) as referenced in ```headersFormatting.plist``` so make sure to download that and put in scripts directory.
 
