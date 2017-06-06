@@ -4,6 +4,8 @@ This directory is a sampling of what I have in ```/Users/me/Library/Application 
 
 My customizations to [MailMate](https://freron.com) Resource files to:
 
+* Keyboard Shortcuts
+
 * Customized header layout
   * Display Sender header prominently
     * Outlook calendar forwards make this important
@@ -31,7 +33,7 @@ Uses [jQuery](https://jquery.com) as referenced in ```headersFormatting.plist```
 
 Default icons (user, users, cvs, jira) are mostly colored PNG versions of [Font Awesome icons](http://fontawesome.io). But of course you can use any icon you like.
 
-Of course replace all ```/Users/me/``` with your home directory.
+Replace all ```/Users/me/``` with your home directory.
 
 Uses [Besticon](https://icons.better-idea.org) for Favicons which I have found works best. You can see other options commented out in the code. Also Favicon Finder is [open-source](https://github.com/mat/besticon) and you can run it locally if you like.
 
