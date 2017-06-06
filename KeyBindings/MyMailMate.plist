@@ -1,0 +1,52 @@
+{
+	// Custom Keybindings for MailMate
+	// See built in bindings in /Applications/MailMate.app/Contents/Resources/KeyBindings
+	// This file goes in ~/Library/Application Support/MailMate/Resources/KeyBindings
+
+  // Mailbox Navigation
+  "g" = {
+	  "i" = ( "cancelSearch:", "goToMailbox:", "INBOX", "selectFirstMessageRow" );
+	  "c" = ( "cancelSearch:", "goToMailbox:", "DBC5A0CD-E2AA-4836-82A1-9840A1E61C1D", "makeFirstResponder:", "pathControl" );
+	  "l" = ( "cancelSearch:", "goToMailbox:", "6B387E05-3468-4325-9926-F236B9BBA025", "makeFirstResponder:", "pathControl" );
+	  "a" = ( "cancelSearch:", "goToMailbox:", "ARCHIVE", "makeFirstResponder:", "pathControl" );
+	  "d" = ( "cancelSearch:", "goToMailbox:", "DRAFTS", "makeFirstResponder:", "pathControl" );
+	  "s" = ( "cancelSearch:", "goToMailbox:", "SENT", "makeFirstResponder:", "pathControl" );
+	  "j" = ( "cancelSearch:", "goToMailbox:", "JUNK", "makeFirstResponder:", "pathControl" );
+	  "t" = ( "cancelSearch:", "goToMailbox:", "TRASH", "makeFirstResponder:", "pathControl" );
+	  "g" = ( "cancelSearch:", "goToMailbox:", "ALL_MESSAGES", "makeFirstResponder:", "pathControl" );
+	  "w" = ( "cancelSearch:", "goToMailbox:", "37D10FD5-5431-4879-AD8B-832A010A4F6F", "makeFirstResponder:", "pathControl" );
+	  "p" = ( "cancelSearch:", "goToMailbox:", "828417AA-E458-484E-9FC3-CE5AD239AE53", "makeFirstResponder:", "pathControl" );
+  };
+
+  // Message Navigation
+	"c"	= "newMessage:";
+	"/"	= "searchAllMessages:"; // search in default (work) mailbox
+	"@/" = "mailboxSearch:";  // ⌘/ search in current mailbox
+	"j"	= "nextMessage:";
+	"J"	= "moveDownAndModifySelection:";
+	"k"	= "previousMessage:";
+	"K"	= "moveUpAndModifySelection:";
+	"o" = "openMessages:";
+	"r"	= "replyAll:";
+	"R" = "replySender:";
+	"f"	= "forwardMessage:";
+  
+  // Message Actions
+	"a" = ( "setTag:", "\\Seen", "markAsNotJunk:", "archive:" );
+	"s" = ( "setTag:", "\\Seen", "markAsJunk:", "moveToMailbox:", "imap://aaa%40bbb.com@mail.messagingengine.com/INBOX/Report Spam" );
+	"i" = ( "setTag:", "\\Seen", "markAsNotJunk:", "moveToMailbox:", "inbox" );
+	"l" = ( "setTag:", "\\Seen", "markAsNotJunk:", "moveToMailbox:", "/Later" );
+	"n" = "markAsNotJunk:";
+	"e"	= "saveAttachmentsInDownloads:"; // "export"
+
+  // Delete a message, marking as read
+	      "d" = ( "setTag:", "\\Seen", "deleteMessage:" );
+	 "\U007F" = ( "setTag:", "\\Seen", "deleteMessage:" ); // ⌫
+	"@\U007F" = ( "setTag:", "\\Seen", "deleteMessage:" ); // ⌘⌫
+	"~\U007F" = "removeAttachments:"; // ⌥⌫
+	
+	// Send, ⌘S for Save is built-in
+	"@\U000D" = "send:"; // ⌘↩ just send
+	"@k" = ( "sendAndMoveParentToMailbox:", "TRASH" ); // ⌘k send and kill/delete parent
+	"@h" = "sendAndArchiveParent:"; // ⌘h send and archive parent
+}

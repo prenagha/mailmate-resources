@@ -1,0 +1,35 @@
+
+#console {
+  font-family: monospace;
+  color: #557630;
+  font-size: small;
+  margin: 0;
+}
+
+.h-hide {
+  display: none;
+}
+
+.h-img {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+}
+
+.h-img-med {
+  width: 22px;
+  height: 22px;
+  border-radius: 3px;
+}
+
+.h-img-sm {
+  width: 16px;
+  height: 16px;
+  padding-left: 2px;
+  border-radius: 2px;
+}
+
+.sent_header a:link {
+	color: #EE2525 !important;
+}
+

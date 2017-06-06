@@ -1,0 +1,34 @@
+{
+   verifications = (
+      {
+         title = "Don't send to JIRA!";
+         details = "You are trying to send to an invalid JIRA address! Are you sure you want to send it?";
+         conditions = "(#recipient.address ~ 'jira@aaa' or #recipient.address ~ 'jira@bbb')";
+      }
+      ,{
+         title = "Don't send to CVS!";
+         details = "You are trying to send to an invalid CVS address! Are you sure you want to send it?";
+         conditions = "(#recipient.address ~ 'cvs@aaa' or #recipient.address ~ 'cvs@bbb')";
+      }
+      ,{
+         title = "Should be Personal?";
+         details = "You normally use this domain with your Personal account! Are you sure you want to send it via Work account?";
+         conditions = "(from.domain = 'aaa.com' and #recipient.domain =[c] $2B4DB5B9-C1C5-4550-BA7B-0CB66BF218BA.#any-address.domain)";
+      }
+      ,{
+         title = "Should be Work?";
+         details = "You normally use this domain with your Work account! Are you sure you want to send it via Personal account?";
+         conditions = "(from.domain = 'bbb.com' and #recipient.domain =[c] $403D361B-77C4-4A6B-BB76-B4AB0C060397.#any-address.domain)";
+      }
+      ,{
+         title = "New Work Domain?";
+         details = "You have never sent to this domain before, is Work the right account?";
+         conditions = "(from.domain = 'aaa.com' and #recipient.domain !=[c] $37D10FD5-5431-4879-AD8B-832A010A4F6F.#any-address.domain and #recipient.domain !=[c] $828417AA-E458-484E-9FC3-CE5AD239AE53.#any-address.domain)";
+      }
+      ,{
+         title = "New Personal Domain?";
+         details = "You have never sent to this domain before, is Personal the right account?";
+         conditions = "(from.domain = 'bbb.com' and #recipient.domain !=[c] $37D10FD5-5431-4879-AD8B-832A010A4F6F.#any-address.domain and #recipient.domain !=[c] $828417AA-E458-484E-9FC3-CE5AD239AE53.#any-address.domain)";
+      }
+   );
+}

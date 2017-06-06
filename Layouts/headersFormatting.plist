@@ -6,57 +6,6 @@
 		// suffixString = "</div>";
 		children =
 		(
- 			{
-				string = "👥 "; // 👤
-				ifExists = "#recipient.split.#correspondent";
-			},
-			{
-				string = "👥 "; // 👤
-				ifExists = "#recipient.split.#correspondent";
-			},
-			{
-				formatString = "${#signed:+✓}";
-				suffix = { string = " "; };
-				singleClick = { selector = "showDetails:"; };
-				toolTip = { formatString = "This message is signed."; };
-			},
-			{
-				formatString = "${#encrypted:+🔒}";
-				suffix = { string = " "; };
-				singleClick = { selector = "showDetails:"; };
-				toolTip = { formatString = "This message is encrypted."; };
-			},
-			{
-				separatorString = "";
-				sharedPrefix = "##tags.tag";
-				suffixString = " ";
-				children =
-				(
-					{
-						formatString = "${##tags.tag.#shortname}";
-						escapeHTML = 1;
-						singleClick =
-						{
-							titleFormatting = { prefixString = "Tagged "; formatString = "“${##tags.tag.#name}”"; };
-							queryFormatting = { formatString = "##tags.tag = '${##tags.tag}'"; escapeSingleQuotes = 1; };
-						};
-						copyValues =
-						(
-							{ title = ''; valueFormatting = { formatString = '${##tags.tag.#name}'; }; },
-							{ titleFormatting = 'Server Keyword (${##tags.tag})'; valueFormatting = { formatString = '${##tags.tag}'; }; },
-						);
-					},
-				);
-			},
-			{
-				string = "“";
-			},
-			{
-				formatString = "${subject.prefix}";
-				escapeHTML = 1;
-				suffix = { string = " "; };
-				// link stuff
-			},
 			{
 				prefix = { string = "["; };
 				formatString = "${subject.blob}";
@@ -88,10 +37,7 @@
 				);
 			},
 			{
-				string = "”";
-			},
-			{
-				prefix = { prefixString = " "; suffixString = " "; string = "from"; fontStyle = bold; color = '#777777'; };
+				prefix = { prefixString = " "; suffixString = " "; string = " ❙ "; };
 				formatString = "${from.name:${from.address}}";
 				escapeHTML = 1;
 				placeholderString = "Unknown";
@@ -158,7 +104,7 @@
 				);
 			},
 			{
-				prefix = { string = ", "; };
+				prefix = { string = " ❙ "; };
 				formatString = "${#date.#relative}";
 				singleClick =
 				{
@@ -166,17 +112,6 @@
 					queryFormatting = { formatString = "#date.day = '${#date.day}'"; escapeSingleQuotes = 1; };
 				};
 				toolTip = { formatDates = 1; formatString = "${#date-received}"; };
-			},
-			{
-				prefix = { string = " written in "; fontStyle = bold; color = '#777777'; };
-				formatString = "${#mailer.name}";
-				escapeHTML = 1;
-				singleClick =
-				{
-					titleFormatting = { prefixString = "Mailer is "; formatString = "'${#mailer.name}'"; };
-					queryFormatting = { formatString = "#mailer.name = '${#mailer.name}'"; escapeSingleQuotes = 1; };
-				};
-				toolTip = { formatString = "${#mailer}"; };
 			},
 		);
 	};
@@ -188,8 +123,8 @@
 		// For now, only Resent-From/To is displayed.
 		// Note that this does not work well for multiple Resent headers, in particular, multiple Resent-To are hard to interpret/display.
 
-		prefixString = "<table><tbody>";
-		suffixString = "</tbody></table>";
+		prefixString = "<pre id=\"console\"></pre><table><tbody>";
+		suffixString = "</tbody></table><script src='file:///Users/me/Library/Application Support/MailMate/Resources/MmMessagesWebView/scripts/jquery-3.2.1.slim.min.js'></script><script src='file:///Users/me/Library/Application Support/MailMate/Resources/MmMessagesWebView/scripts/custom.js'></script>";
 
 		children =
 		(
@@ -208,10 +143,10 @@
 						};
 					},
 					{
-						prefix = { formatString = "${resent-from.name:+ &lt;}";};
+						prefix = { formatString = "${resent-from.name:+ <span class=\"hdr_addr\">}";};
 						formatString = "${resent-from.address}";
 						escapeHTML = 1;
-						suffix = { formatString = "${resent-from.name:+&gt;}";};
+						suffix = { formatString = "${resent-from.name:+</span>}";};
 						singleClick =
 						{
 							titleFormatting = { prefixString = "Resent from "; formatString = "“${resent-from.address}”"; };
@@ -253,10 +188,10 @@
 						isAddress = :true;
 					},
 					{
-						prefix = { formatString = "${to.name:+ &lt;}";};
+						prefix = { formatString = "${to.name:+ <span class=\"hdr_addr\">}";};
 						formatString = "${to.address}";
 						escapeHTML = 1;
-						suffix = { formatString = "${to.name:+&gt;}";};
+						suffix = { formatString = "${to.name:+</span>}";};
 						singleClick =
 						{
 							titleFormatting = { prefixString = "Resent to "; formatString = "“${resent-to.address}”"; };
@@ -273,28 +208,53 @@
 				);
 			},
 			{
-				prefix = { string = "<tr><td><span class=\"header_name\">From:</span></td><td><span class=\"header_body\">"; };
+				prefix = { string = "<tr><td><span class=\"header_name\">🗣</span></td><td><span class=\"header_body sent_header\">"; };
 				suffixString = "</span></td></tr>";
 				children =
 				(
 					{
-						formatString = "${from.name}";
+						formatString = "${sender}";
 						escapeHTML = 1;
 						singleClick =
 						{
-							titleFormatting = { prefixString = "From "; formatString = "“${from.name}”"; };
-							queryFormatting = { formatString = "from.name = '${from.name}'"; separatorString = " or "; escapeSingleQuotes = 1; };
+							titleFormatting = { prefixString = "Sender "; formatString = "“${sender}”"; };
+							queryFormatting = { formatString = "Sender = '${sender}'"; separatorString = " or "; escapeSingleQuotes = 1; };
+						};
+					},
+				);
+				copyValues =
+				(
+					{ title = ''; valueFormatting = { formatString = '${sender}'; }; },
+				);
+				isAddress = :false;
+			},
+			{
+				prefix = { string = "<tr><td><span class=\"header_name\"><img id=\"h-from-img\" class=\"h-img\" onerror=\"imageError(this)\" src=\"file:///Users/me/Library/Application Support/MailMate/Resources/MmMessagesWebView/user.png\"/></span></td><td><span class=\"header_body\">"; };
+				suffixString = "</span></td></tr>";
+				children =
+				(
+					{
+						prefix = { formatString = "<span class=\"h-name\" data-img=\"h-from-img\" data-addr=\"${from.address}\">";};
+						formatString = "${from.name}";
+						suffix = { string = "</span>";};
+						escapeHTML = 1;
+						singleClick =
+						{
+              titleImage = "NSUser";
+              titleFormatting = { prefixString = "Any "; formatString = "“${from.address}”"; };
+              queryFormatting = { formatString = "#any-address.address = '${from.address}'"; separatorString = " or "; escapeSingleQuotes = 1; };
 						};
 					},
 					{
-						prefix = { formatString = "${from.name:+ &lt;}";};
+						prefix = { formatString = "<span class=\"h-addr ${from.name:+ h-hide}\" data-img=\"h-from-img\">";};
 						formatString = "${from.address}";
 						escapeHTML = 1;
-						suffix = { formatString = "${from.name:+&gt;}";};
+						suffix = { string = "</span>";};
 						singleClick =
 						{
-							titleFormatting = { prefixString = "From "; formatString = "“${from.address}”"; };
-							queryFormatting = { formatString = "from.address = '${from.address}'"; separatorString = " or "; escapeSingleQuotes = 1; };
+              titleImage = "NSUser";
+              titleFormatting = { prefixString = "Any "; formatString = "“${from.address}”"; };
+              queryFormatting = { formatString = "#any-address.address = '${from.address}'"; separatorString = " or "; escapeSingleQuotes = 1; };
 						};
 					},
 				);
@@ -307,16 +267,11 @@
 				isAddress = :true;
 			},
 			{
-				prefix = { string = "<tr><td><span class=\"header_name\">Subject:</span></td><td><span class=\"header_body\">"; };
+				prefix = { string = "<tr><td><span class=\"header_name\"></span></td><td><span class=\"header_body\">"; };
 				suffixString = "</span></td></tr>";
 				children =
 				(
-					{
-						formatString = "${subject.prefix}";
-						escapeHTML = 1;
-						suffix = { string = " "; };
-						// link stuff
-					},
+
 					{
 						prefix = { string = "["; };
 						formatString = "${subject.blob}";
@@ -350,7 +305,7 @@
 				);
 			},
 			{
-				prefix = { string = "<tr><td><span class=\"header_name\">Date:</span></td><td><span class=\"header_body\">"; };
+				prefix = { string = "<tr><td><span class=\"header_name\"></span></td><td><span class=\"header_body\">"; };
 				suffixString = "</span></td></tr>";
 				formatString = "${#date.formatted}";
 				singleClick =
@@ -360,7 +315,7 @@
 				};
 			},
 			{
-				prefix = { string = "<tr><td><span class=\"header_name\">To:</span></td><td><span class=\"header_body\">"; };
+				prefix = { string = "<tr><td><span class=\"header_name\"><img id=\"h-img-to\" class=\"h-img-med\" onerror=\"imageError(this)\" src=\"file:///Users/me/Library/Application Support/MailMate/Resources/MmMessagesWebView/user.png\"/></span></td><td><span class=\"header_body\">"; };
 				suffixString = "</span></td></tr>";
 				sharedPrefix = "to";
 				separatorString = ", ";
@@ -368,12 +323,15 @@
 				children =
 				(
 					{
+						prefix = { formatString = "<span class=\"h-name\" data-addr=\"${to.address}\">";};
 						formatString = "${to.name}";
+						suffix = { string = "</span><img class=\"h-img-sm h-to-img-sm\" onerror=\"imageError(this)\" src=\"file:///Users/me/Library/Application Support/MailMate/Resources/MmMessagesWebView/user.png\"/>";};
 						escapeHTML = 1;
 						singleClick =
 						{
-							titleFormatting = { prefixString = "To "; formatString = "“${to.name}”"; };
-							queryFormatting = { formatString = "#recipient.name = '${to.name}'"; escapeSingleQuotes = 1; };
+              titleImage = "NSUser";
+							titleFormatting = { prefixString = "Any "; formatString = "“${to.address}”"; };
+							queryFormatting = { formatString = "#any-address.address = '${to.address}'"; escapeSingleQuotes = 1; };
 						};
 						copyValues =
 						(
@@ -384,14 +342,15 @@
 						isAddress = :true;
 					},
 					{
-						prefix = { formatString = "${to.name:+ &lt;}";};
+						prefix = { formatString = "<span class=\"h-addr h-addr-to ${to.name:+ h-hide}\">";};
 						formatString = "${to.address}";
 						escapeHTML = 1;
-						suffix = { formatString = "${to.name:+&gt;}";};
+						suffix = { formatString = "</span><img class=\"h-img-sm h-to-img-sm ${to.name:+ h-hide}\" onerror=\"imageError(this)\" src=\"file:///Users/me/Library/Application Support/MailMate/Resources/MmMessagesWebView/user.png\"/>";};
 						singleClick =
 						{
-							titleFormatting = { prefixString = "To "; formatString = "“${to.address}”"; };
-							queryFormatting = { formatString = "#recipient.address = '${to.address}'"; escapeSingleQuotes = 1; };
+              titleImage = "NSUser";
+							titleFormatting = { prefixString = "Any "; formatString = "“${to.address}”"; };
+							queryFormatting = { formatString = "#any-address.address = '${to.address}'"; escapeSingleQuotes = 1; };
 						};
 						copyValues =
 						(
@@ -404,7 +363,7 @@
 				);
 			},
 			{
-				prefix = { string = "<tr><td><span class=\"header_name\">Cc:</span></td><td><span class=\"header_body\">"; };
+				prefix = { string = "<tr><td><span class=\"header_name\"><img id=\"h-img-cc\" class=\"h-img-med\" onerror=\"imageError(this)\" src=\"file:///Users/me/Library/Application Support/MailMate/Resources/MmMessagesWebView/users.png\"/></span></td><td><span class=\"header_body\">"; };
 				suffixString = "</span></td></tr>";
 				sharedPrefix = "cc";
 				limitString = " and %td more...";
@@ -412,12 +371,15 @@
 				children =
 				(
 					{
+						prefix = { formatString = "<span class=\"h-name\" data-addr=\"${cc.address}\">";};
 						formatString = "${cc.name}";
+						suffix = { string = "</span><img class=\"h-img-sm h-cc-img-sm\" onerror=\"imageError(this)\" src=\"file:///Users/me/Library/Application Support/MailMate/Resources/MmMessagesWebView/user.png\"/>";};
 						escapeHTML = 1;
 						singleClick =
 						{
-							titleFormatting = { prefixString = "To "; formatString = "“${cc.name}”"; };
-							queryFormatting = { formatString = "#recipient.name = '${cc.name}'"; escapeSingleQuotes = 1; };
+              titleImage = "NSUser";
+							titleFormatting = { prefixString = "Any "; formatString = "“${cc.address}”"; };
+							queryFormatting = { formatString = "#any-address.address = '${cc.address}'"; escapeSingleQuotes = 1; };
 						};
 						copyValues =
 						(
@@ -428,14 +390,15 @@
 						isAddress = :true;
 					},
 					{
-						prefix = { formatString = "${cc.name:+ &lt;}";};
+						prefix = { formatString = "<span class=\"h-addr h-addr-cc ${cc.name:+ h-hide}\">";};
 						formatString = "${cc.address}";
 						escapeHTML = 1;
-						suffix = { formatString = "${cc.name:+&gt;}";};
+						suffix = { formatString = "</span><img class=\"h-img-sm h-cc-img-sm ${cc.name:+ h-hide}\" onerror=\"imageError(this)\" src=\"file:///Users/me/Library/Application Support/MailMate/Resources/MmMessagesWebView/user.png\"/>";};
 						singleClick =
 						{
-							titleFormatting = { prefixString = "To "; formatString = "“${cc.address}”"; };
-							queryFormatting = { formatString = "#recipient.address = '${cc.address}'"; escapeSingleQuotes = 1; };
+              titleImage = "NSUser";
+							titleFormatting = { prefixString = "Any "; formatString = "“${cc.address}”"; };
+							queryFormatting = { formatString = "#any-address.address = '${cc.address}'"; escapeSingleQuotes = 1; };
 						};
 						copyValues =
 						(
@@ -448,7 +411,7 @@
 				);
 			},
 			{
-				prefix = { string = "<tr><td><span class=\"header_name\">Bcc:</span></td><td><span class=\"header_body\">"; };
+				prefix = { string = "<tr><td><span class=\"header_name\">🔒</span></td><td><span class=\"header_body\">"; };
 				suffixString = "</span></td></tr>";
 				sharedPrefix = "bcc";
 				limitString = " and %td more...";
@@ -456,12 +419,15 @@
 				children =
 				(
 					{
+						prefix = { formatString = "<span class=\"h-name\">";};
 						formatString = "${bcc.name}";
+						suffix = { string = "</span>";};
 						escapeHTML = 1;
 						singleClick =
 						{
-							titleFormatting = { prefixString = "To "; formatString = "“${bcc.name}”"; };
-							queryFormatting = { formatString = "#recipient.name = '${bcc.name}'"; escapeSingleQuotes = 1; };
+              titleImage = "NSUser";
+							titleFormatting = { prefixString = "Any "; formatString = "“${bcc.address}”"; };
+							queryFormatting = { formatString = "#any-address.address = '${bcc.address}'"; escapeSingleQuotes = 1; };
 						};
 						copyValues =
 						(
@@ -472,14 +438,15 @@
 						isAddress = :true;
 					},
 					{
-						prefix = { formatString = "${bcc.name:+ &lt;}";};
+						prefix = { formatString = "<span class=\"h-addr ${bcc.name:+ h-hide}\">";};
 						formatString = "${bcc.address}";
 						escapeHTML = 1;
-						suffix = { formatString = "${bcc.name:+&gt;}";};
+						suffix = { string = "</span>";};
 						singleClick =
 						{
-							titleFormatting = { prefixString = "To "; formatString = "“${bcc.address}”"; };
-							queryFormatting = { formatString = "#recipient.address = '${bcc.address}'"; escapeSingleQuotes = 1; };
+              titleImage = "NSUser";
+							titleFormatting = { prefixString = "Any "; formatString = "“${bcc.address}”"; };
+							queryFormatting = { formatString = "#any-address.address = '${bcc.address}'"; escapeSingleQuotes = 1; };
 						};
 						copyValues =
 						(
@@ -492,7 +459,7 @@
 				);
 			},
 			{
-				prefix = { string = "<tr><td><span class=\"header_name\">Security:</span></td><td><span class=\"header_body\">"; };
+				prefix = { string = "<tr><td><span class=\"header_name\">🔑</span></td><td><span class=\"header_body\">"; };
 				suffixString = "</span></td></tr>";
 				separatorString = " ";
 				children =
@@ -512,7 +479,7 @@
 				);
 			},
 			{
-				prefix = { string = "<tr><td><span class=\"header_name\">Tags:</span></td><td><span class=\"header_body\">"; };
+				prefix = { string = "<tr><td><span class=\"header_name\">🏷</span></td><td><span class=\"header_body\">"; };
 				suffixString = "</span></td></tr>";
 				separatorString = " ";
 				sharedPrefix = "##tags.tag";
@@ -547,8 +514,8 @@
 
 		template = {
 			prefixString = "<tr><td><span class=\"header_name\">${HEADER}:</span></td><td><span class=\"header_body\">";
-			suffixString = "</span></td></tr>";
 			formatString = "${HEADER}";
+			suffixString = "</span></td></tr>";
 			escapeHTML = 1;
 		};
 	};
