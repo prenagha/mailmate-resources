@@ -1,0 +1,555 @@
+{
+	defaultFormatting = "longFormatting";
+	shortFormatting =
+	{
+		// prefixString = "<div style=\"background-color: yellow;\">";
+		// suffixString = "</div>";
+		children =
+		(
+ 			{
+				string = "👥 "; // 👤
+				ifExists = "#recipient.split.#correspondent";
+			},
+			{
+				string = "👥 "; // 👤
+				ifExists = "#recipient.split.#correspondent";
+			},
+			{
+				formatString = "${#signed:+✓}";
+				suffix = { string = " "; };
+				singleClick = { selector = "showDetails:"; };
+				toolTip = { formatString = "This message is signed."; };
+			},
+			{
+				formatString = "${#encrypted:+🔒}";
+				suffix = { string = " "; };
+				singleClick = { selector = "showDetails:"; };
+				toolTip = { formatString = "This message is encrypted."; };
+			},
+			{
+				separatorString = "";
+				sharedPrefix = "##tags.tag";
+				suffixString = " ";
+				children =
+				(
+					{
+						formatString = "${##tags.tag.#shortname}";
+						escapeHTML = 1;
+						singleClick =
+						{
+							titleFormatting = { prefixString = "Tagged "; formatString = "“${##tags.tag.#name}”"; };
+							queryFormatting = { formatString = "##tags.tag = '${##tags.tag}'"; escapeSingleQuotes = 1; };
+						};
+						copyValues =
+						(
+							{ title = ''; valueFormatting = { formatString = '${##tags.tag.#name}'; }; },
+							{ titleFormatting = 'Server Keyword (${##tags.tag})'; valueFormatting = { formatString = '${##tags.tag}'; }; },
+						);
+					},
+				);
+			},
+			{
+				string = "“";
+			},
+			{
+				formatString = "${subject.prefix}";
+				escapeHTML = 1;
+				suffix = { string = " "; };
+				// link stuff
+			},
+			{
+				prefix = { string = "["; };
+				formatString = "${subject.blob}";
+				escapeHTML = 1;
+				suffix = { string = "] "; };
+				singleClick =
+				{
+					titleFormatting = { prefixString = "Related to "; formatString = "${list-id.identifier:?“${list-id.identifier}”:[${subject.blob}]}"; };
+					queryFormatting = { formatString = "${list-id.identifier:?list-id.identifier = '${list-id.identifier}':subject.blob = '${subject.blob}'}"; escapeSingleQuotes = 1; };
+				};
+				copyValues =
+				(
+					{ title = ''; valueFormatting = { formatString = '${subject}'; }; },
+					{ title = 'Blob Only'; valueFormatting = { formatString = '${subject.blob}'; }; },
+				);
+			},
+			{
+				formatString = "${subject.body}";
+				escapeHTML = 1;
+				singleClick =
+				{
+					titleFormatting = { prefixString = "Related to "; formatString = "“${subject.body}”"; };
+					queryFormatting = { formatString = "subject.body = '${subject.body}'"; escapeSingleQuotes = 1; };
+				};
+				copyValues =
+				(
+					{ title = ''; valueFormatting = { formatString = '${subject}'; }; },
+					{ title = 'Without Prefix'; valueFormatting = { formatString = '${subject.body}'; }; },
+				);
+			},
+			{
+				string = "”";
+			},
+			{
+				prefix = { prefixString = " "; suffixString = " "; string = "from"; fontStyle = bold; color = '#777777'; };
+				formatString = "${from.name:${from.address}}";
+				escapeHTML = 1;
+				placeholderString = "Unknown";
+//				fontStyle = bold;
+				singleClick =
+				{
+					titleImage = "NSUser";
+					titleFormatting = { prefixString = "From "; formatString = "“${from.address}”"; };
+					queryFormatting = { formatString = "from.address = '${from.address}'"; separatorString = " or "; escapeSingleQuotes = 1; };
+				};
+				toolTip = { formatString = "${from}"; };
+				copyValues =
+				(
+					{ title = ''; valueFormatting = { formatString = '${from.name:+${from.name} <${from.address}>}'; }; },
+					{ title = 'Address Only'; valueFormatting = { formatString = '${from.address}'; }; },
+					{ title = 'Name Only'; valueFormatting = { formatString = '${from.name}'; }; },
+				);
+				isAddress = :true;
+				relatedSearches =
+				(
+					{
+						titleImage = "NSUser";
+						titleFormatting = { formatString = "From “${from.address}”"; };
+						queryFormatting = { formatString = "from.address = '${from.address}'"; escapeSingleQuotes = 1; };
+					},
+					{
+						titleImage = "NSUser";
+						titleFormatting = { formatString = "From “${from.name}”"; };
+						queryFormatting = { formatString = "from.name = '${from.name}'"; escapeSingleQuotes = 1; };
+					},
+				);
+			},
+			{
+				prefix = { string = " (via "; };
+				suffix = { string = ")"; };
+				formatString = "${resent-from.name:${resent-from.address}}";
+				escapeHTML = 1;
+				singleClick =
+				{
+					titleImage = "NSUser";
+					titleFormatting = { prefixString = "Resent from "; formatString = "“${resent-from.address}”"; };
+					queryFormatting = { formatString = "resent-from.address = '${resent-from.address}'"; separatorString = " or "; escapeSingleQuotes = 1; };
+				};
+				toolTip = { formatString = "${resent-from}"; };
+				copyValues =
+				(
+					{ title = ''; valueFormatting = { formatString = '${resent-from.name:+${resent-from.name} <${resent-from.address}>}'; }; },
+					{ title = 'Address Only'; valueFormatting = { formatString = '${resent-from.address}'; }; },
+					{ title = 'Name Only'; valueFormatting = { formatString = '${resent-from.name}'; }; },
+				);
+				isAddress = :true;
+				relatedSearches =
+				(
+					{
+						titleImage = "NSUser";
+						titleFormatting = { formatString = "Resent from “${resent-from.address}”"; };
+						queryFormatting = { formatString = "resent-from.address = '${resent-from.address}'"; escapeSingleQuotes = 1; };
+					},
+					{
+						titleImage = "NSUser";
+						titleFormatting = { formatString = "Resent from “${resent-from.name}”"; };
+						queryFormatting = { formatString = "resent-from.name = '${resent-from.name}'"; escapeSingleQuotes = 1; };
+					},
+				);
+			},
+			{
+				prefix = { string = ", "; };
+				formatString = "${#date.#relative}";
+				singleClick =
+				{
+					titleFormatting = { prefixString = "Date is "; formatString = "“${#date.day}”"; };
+					queryFormatting = { formatString = "#date.day = '${#date.day}'"; escapeSingleQuotes = 1; };
+				};
+				toolTip = { formatDates = 1; formatString = "${#date-received}"; };
+			},
+			{
+				prefix = { string = " written in "; fontStyle = bold; color = '#777777'; };
+				formatString = "${#mailer.name}";
+				escapeHTML = 1;
+				singleClick =
+				{
+					titleFormatting = { prefixString = "Mailer is "; formatString = "'${#mailer.name}'"; };
+					queryFormatting = { formatString = "#mailer.name = '${#mailer.name}'"; escapeSingleQuotes = 1; };
+				};
+				toolTip = { formatString = "${#mailer}"; };
+			},
+		);
+	};
+	longFormatting =
+	{
+		separator = { string = "\n"; };
+		placeholderString = "(No headers found)";
+		// There is a lot of redundancy in the following. Need some way to simplify/template how this works.
+		// For now, only Resent-From/To is displayed.
+		// Note that this does not work well for multiple Resent headers, in particular, multiple Resent-To are hard to interpret/display.
+
+		prefixString = "<table><tbody>";
+		suffixString = "</tbody></table>";
+
+		children =
+		(
+			{
+				prefix = { string = "<tr><td><span class=\"header_name\">Resent-From:</span></td><td><span class=\"header_body\">"; };
+				suffixString = "</span></td></tr>";
+				children =
+				(
+					{
+						formatString = "${resent-from.name}";
+						escapeHTML = 1;
+						singleClick =
+						{
+							titleFormatting = { prefixString = "Resent from "; formatString = "“${resent-from.name}”"; };
+							queryFormatting = { formatString = "resent-from.name = '${resent-from.name}'"; separatorString = " or "; escapeSingleQuotes = 1; };
+						};
+					},
+					{
+						prefix = { formatString = "${resent-from.name:+ &lt;}";};
+						formatString = "${resent-from.address}";
+						escapeHTML = 1;
+						suffix = { formatString = "${resent-from.name:+&gt;}";};
+						singleClick =
+						{
+							titleFormatting = { prefixString = "Resent from "; formatString = "“${resent-from.address}”"; };
+							queryFormatting = { formatString = "resent-from.address = '${resent-from.address}'"; separatorString = " or "; escapeSingleQuotes = 1; };
+						};
+					},
+				);
+				copyValues =
+				(
+					{ title = ''; valueFormatting = { formatString = '${resent-from.name:+${resent-from.name} <${resent-from.address}>}'; }; },
+					{ title = 'Address Only'; valueFormatting = { formatString = '${resent-from.address}'; }; },
+					{ title = 'Name Only'; valueFormatting = { formatString = '${resent-from.name}'; }; },
+				);
+				isAddress = :true;
+			},
+			{
+				prefix = { string = "<tr><td><span class=\"header_name\">Resent-To:</span></td><td><span class=\"header_body\">"; };
+				suffixString = "</span></td></tr>";
+				sharedPrefix = "resent-to";
+				separatorString = ", ";
+				children =
+				(
+					{
+						formatString = "${resent-to.name}";
+						escapeHTML = 1;
+						// Need alternative `#recipient` definition since resent addresses should not be part of `#recipient`.
+						//  Maybe an alternative which includes resents...
+						// singleClick =
+						// {
+						// 	titleFormatting = { prefixString = "Resent to "; formatString = "“${resent-to.name}”"; };
+						// 	queryFormatting = { formatString = "#recipient.name = '${resent-to.name}'"; escapeSingleQuotes = 1; };
+						// };
+						copyValues =
+						(
+							{ title = ''; valueFormatting = { formatString = '${resent-to.name:+${resent-to.name} <${resent-to.address}>}'; }; },
+							{ title = 'Address Only'; valueFormatting = { formatString = '${resent-to.address}'; }; },
+							{ title = 'Name Only'; valueFormatting = { formatString = '${resent-to.name}'; }; },
+						);
+						isAddress = :true;
+					},
+					{
+						prefix = { formatString = "${to.name:+ &lt;}";};
+						formatString = "${to.address}";
+						escapeHTML = 1;
+						suffix = { formatString = "${to.name:+&gt;}";};
+						singleClick =
+						{
+							titleFormatting = { prefixString = "Resent to "; formatString = "“${resent-to.address}”"; };
+							queryFormatting = { formatString = "#recipient.address = '${to.address}'"; escapeSingleQuotes = 1; };
+						};
+						copyValues =
+						(
+							{ title = ''; valueFormatting = { formatString = '${to.name:+${to.name} <${to.address}>}'; }; },
+							{ title = 'Address Only'; valueFormatting = { formatString = '${to.address}'; }; },
+							{ title = 'Name Only'; valueFormatting = { formatString = '${to.name}'; }; },
+						);
+						isAddress = :true;
+					},
+				);
+			},
+			{
+				prefix = { string = "<tr><td><span class=\"header_name\">From:</span></td><td><span class=\"header_body\">"; };
+				suffixString = "</span></td></tr>";
+				children =
+				(
+					{
+						formatString = "${from.name}";
+						escapeHTML = 1;
+						singleClick =
+						{
+							titleFormatting = { prefixString = "From "; formatString = "“${from.name}”"; };
+							queryFormatting = { formatString = "from.name = '${from.name}'"; separatorString = " or "; escapeSingleQuotes = 1; };
+						};
+					},
+					{
+						prefix = { formatString = "${from.name:+ &lt;}";};
+						formatString = "${from.address}";
+						escapeHTML = 1;
+						suffix = { formatString = "${from.name:+&gt;}";};
+						singleClick =
+						{
+							titleFormatting = { prefixString = "From "; formatString = "“${from.address}”"; };
+							queryFormatting = { formatString = "from.address = '${from.address}'"; separatorString = " or "; escapeSingleQuotes = 1; };
+						};
+					},
+				);
+				copyValues =
+				(
+					{ title = ''; valueFormatting = { formatString = '${from.name:+${from.name} <${from.address}>}'; }; },
+					{ title = 'Address Only'; valueFormatting = { formatString = '${from.address}'; }; },
+					{ title = 'Name Only'; valueFormatting = { formatString = '${from.name}'; }; },
+				);
+				isAddress = :true;
+			},
+			{
+				prefix = { string = "<tr><td><span class=\"header_name\">Subject:</span></td><td><span class=\"header_body\">"; };
+				suffixString = "</span></td></tr>";
+				children =
+				(
+					{
+						formatString = "${subject.prefix}";
+						escapeHTML = 1;
+						suffix = { string = " "; };
+						// link stuff
+					},
+					{
+						prefix = { string = "["; };
+						formatString = "${subject.blob}";
+						escapeHTML = 1;
+						suffix = { string = "] "; };
+						singleClick =
+						{
+							titleFormatting = { prefixString = "Related to "; formatString = "${list-id.identifier:?“${list-id.identifier}”:[${subject.blob}]}"; };
+							queryFormatting = { formatString = "${list-id.identifier:?list-id.identifier = '${list-id.identifier}':subject.blob = '${subject.blob}'}"; escapeSingleQuotes = 1; };
+						};
+						copyValues =
+						(
+							{ title = ''; valueFormatting = { formatString = '${subject}'; }; },
+							{ title = 'Blob Only'; valueFormatting = { formatString = '${subject.blob}'; }; },
+						);
+					},
+					{
+						formatString = "${subject.body}";
+						escapeHTML = 1;
+						singleClick =
+						{
+							titleFormatting = { prefixString = "Related to "; formatString = "“${subject.body}”"; };
+							queryFormatting = { formatString = "subject.body = '${subject.body}'"; escapeSingleQuotes = 1; };
+						};
+						copyValues =
+						(
+							{ title = ''; valueFormatting = { formatString = '${subject}'; }; },
+							{ title = 'Without Prefix'; valueFormatting = { formatString = '${subject.body}'; }; },
+						);
+					},
+				);
+			},
+			{
+				prefix = { string = "<tr><td><span class=\"header_name\">Date:</span></td><td><span class=\"header_body\">"; };
+				suffixString = "</span></td></tr>";
+				formatString = "${#date.formatted}";
+				singleClick =
+				{
+					titleFormatting = { prefixString = "Date is "; formatString = "“${#date.day}”"; };
+					queryFormatting = { formatString = "#date.day = '${#date.day}'"; escapeSingleQuotes = 1; };
+				};
+			},
+			{
+				prefix = { string = "<tr><td><span class=\"header_name\">To:</span></td><td><span class=\"header_body\">"; };
+				suffixString = "</span></td></tr>";
+				sharedPrefix = "to";
+				separatorString = ", ";
+				limitString = " and %td more...";
+				children =
+				(
+					{
+						formatString = "${to.name}";
+						escapeHTML = 1;
+						singleClick =
+						{
+							titleFormatting = { prefixString = "To "; formatString = "“${to.name}”"; };
+							queryFormatting = { formatString = "#recipient.name = '${to.name}'"; escapeSingleQuotes = 1; };
+						};
+						copyValues =
+						(
+							{ title = ''; valueFormatting = { formatString = '${to.name:+${to.name} <${to.address}>}'; }; },
+							{ title = 'Address Only'; valueFormatting = { formatString = '${to.address}'; }; },
+							{ title = 'Name Only'; valueFormatting = { formatString = '${to.name}'; }; },
+						);
+						isAddress = :true;
+					},
+					{
+						prefix = { formatString = "${to.name:+ &lt;}";};
+						formatString = "${to.address}";
+						escapeHTML = 1;
+						suffix = { formatString = "${to.name:+&gt;}";};
+						singleClick =
+						{
+							titleFormatting = { prefixString = "To "; formatString = "“${to.address}”"; };
+							queryFormatting = { formatString = "#recipient.address = '${to.address}'"; escapeSingleQuotes = 1; };
+						};
+						copyValues =
+						(
+							{ title = ''; valueFormatting = { formatString = '${to.name:+${to.name} <${to.address}>}'; }; },
+							{ title = 'Address Only'; valueFormatting = { formatString = '${to.address}'; }; },
+							{ title = 'Name Only'; valueFormatting = { formatString = '${to.name}'; }; },
+						);
+						isAddress = :true;
+					},
+				);
+			},
+			{
+				prefix = { string = "<tr><td><span class=\"header_name\">Cc:</span></td><td><span class=\"header_body\">"; };
+				suffixString = "</span></td></tr>";
+				sharedPrefix = "cc";
+				limitString = " and %td more...";
+				separatorString = ", ";
+				children =
+				(
+					{
+						formatString = "${cc.name}";
+						escapeHTML = 1;
+						singleClick =
+						{
+							titleFormatting = { prefixString = "To "; formatString = "“${cc.name}”"; };
+							queryFormatting = { formatString = "#recipient.name = '${cc.name}'"; escapeSingleQuotes = 1; };
+						};
+						copyValues =
+						(
+							{ title = ''; valueFormatting = { formatString = '${cc.name:+${cc.name} <${cc.address}>}'; }; },
+							{ title = 'Address Only'; valueFormatting = { formatString = '${cc.address}'; }; },
+							{ title = 'Name Only'; valueFormatting = { formatString = '${cc.name}'; }; },
+						);
+						isAddress = :true;
+					},
+					{
+						prefix = { formatString = "${cc.name:+ &lt;}";};
+						formatString = "${cc.address}";
+						escapeHTML = 1;
+						suffix = { formatString = "${cc.name:+&gt;}";};
+						singleClick =
+						{
+							titleFormatting = { prefixString = "To "; formatString = "“${cc.address}”"; };
+							queryFormatting = { formatString = "#recipient.address = '${cc.address}'"; escapeSingleQuotes = 1; };
+						};
+						copyValues =
+						(
+							{ title = ''; valueFormatting = { formatString = '${cc.name:+${cc.name} <${cc.address}>}'; }; },
+							{ title = 'Address Only'; valueFormatting = { formatString = '${cc.address}'; }; },
+							{ title = 'Name Only'; valueFormatting = { formatString = '${cc.name}'; }; },
+						);
+						isAddress = :true;
+					},
+				);
+			},
+			{
+				prefix = { string = "<tr><td><span class=\"header_name\">Bcc:</span></td><td><span class=\"header_body\">"; };
+				suffixString = "</span></td></tr>";
+				sharedPrefix = "bcc";
+				limitString = " and %td more...";
+				separatorString = ", ";
+				children =
+				(
+					{
+						formatString = "${bcc.name}";
+						escapeHTML = 1;
+						singleClick =
+						{
+							titleFormatting = { prefixString = "To "; formatString = "“${bcc.name}”"; };
+							queryFormatting = { formatString = "#recipient.name = '${bcc.name}'"; escapeSingleQuotes = 1; };
+						};
+						copyValues =
+						(
+							{ title = ''; valueFormatting = { formatString = '${bcc.name:+${bcc.name} <${bcc.address}>}'; }; },
+							{ title = 'Address Only'; valueFormatting = { formatString = '${bcc.address}'; }; },
+							{ title = 'Name Only'; valueFormatting = { formatString = '${bcc.name}'; }; },
+						);
+						isAddress = :true;
+					},
+					{
+						prefix = { formatString = "${bcc.name:+ &lt;}";};
+						formatString = "${bcc.address}";
+						escapeHTML = 1;
+						suffix = { formatString = "${bcc.name:+&gt;}";};
+						singleClick =
+						{
+							titleFormatting = { prefixString = "To "; formatString = "“${bcc.address}”"; };
+							queryFormatting = { formatString = "#recipient.address = '${bcc.address}'"; escapeSingleQuotes = 1; };
+						};
+						copyValues =
+						(
+							{ title = ''; valueFormatting = { formatString = '${bcc.name:+${bcc.name} <${bcc.address}>}'; }; },
+							{ title = 'Address Only'; valueFormatting = { formatString = '${bcc.address}'; }; },
+							{ title = 'Name Only'; valueFormatting = { formatString = '${bcc.name}'; }; },
+						);
+						isAddress = :true;
+					},
+				);
+			},
+			{
+				prefix = { string = "<tr><td><span class=\"header_name\">Security:</span></td><td><span class=\"header_body\">"; };
+				suffixString = "</span></td></tr>";
+				separatorString = " ";
+				children =
+				(
+					{
+						// formatString = "${#encrypted:+🔒Encrypted (${#security-protocol:+Unknown protocol})}";
+						formatString = "${#encrypted:+🔒Encrypted}";
+						singleClick = { selector = "showDetails:"; };
+						toolTip = { formatString = "This message is encrypted."; };
+					},
+					{
+						// formatString = "${#signed:+✓Signed (${#security-protocol:+Unknown protocol})}";
+						formatString = "${#signed:+✓Signed}";
+						singleClick = { selector = "showDetails:"; };
+						toolTip = { formatString = "This message is signed."; };
+					}
+				);
+			},
+			{
+				prefix = { string = "<tr><td><span class=\"header_name\">Tags:</span></td><td><span class=\"header_body\">"; };
+				suffixString = "</span></td></tr>";
+				separatorString = " ";
+				sharedPrefix = "##tags.tag";
+				children =
+				(
+					{
+						formatString = "${##tags.tag.#shortname}${##tags.tag.#name}";
+						escapeHTML = 1;
+						singleClick =
+						{
+							titleFormatting = { prefixString = "Tagged "; formatString = "“${##tags.tag.#name}”"; };
+							queryFormatting = { formatString = "##tags.tag = '${##tags.tag}'"; escapeSingleQuotes = 1; };
+						};
+						copyValues =
+						(
+							{ title = ''; valueFormatting = { formatString = '${##tags.tag.#name}'; }; },
+							{ titleFormatting = 'Server Keyword (${##tags.tag})'; valueFormatting = { formatString = '${##tags.tag}'; }; },
+						);
+					},
+				);
+			},
+		);
+	};
+
+	allFormatting =
+	{
+		separator = { string = "\n"; };
+		placeholderString = "(No headers found)";
+
+		prefixString = "<table><tbody>";
+		suffixString = "</tbody></table>";
+
+		template = {
+			prefixString = "<tr><td><span class=\"header_name\">${HEADER}:</span></td><td><span class=\"header_body\">";
+			suffixString = "</span></td></tr>";
+			formatString = "${HEADER}";
+			escapeHTML = 1;
+		};
+	};
+}
