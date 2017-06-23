@@ -1,0 +1,8 @@
+{	name    = 'canonical_to_html_display_in';
+	input   = 'canonical';
+	output  = 'canonical';
+	script  = '#!/usr/bin/env bash
+"${MM_BUNDLE_SUPPORT}/bin/logger.sh"
+';
+	uuid    = 'E32FED7D-CB06-4DE2-BCB7-1504DFFD1666';
+}

@@ -1,0 +1,8 @@
+{	name    = 'MyHTMLFilter';
+	input   = 'html';
+	output  = 'html';
+	script  = '#!/usr/bin/env bash
+"${MM_BUNDLE_SUPPORT}/bin/MyHTMLFilter.pl"
+';
+	uuid    = '35EFC170-3C8C-4AFD-B853-00D54CED654C';
+}

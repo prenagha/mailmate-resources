@@ -1,0 +1,8 @@
+{	name    = 'display_html_out';
+	input   = 'html';
+	output  = 'html';
+	script  = '#!/usr/bin/env bash
+"${MM_BUNDLE_SUPPORT}/bin/logger.sh"
+';
+	uuid    = '1B9B131A-3153-4BD2-86B5-D40F83878894';
+}

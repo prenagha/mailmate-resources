@@ -1,0 +1,56 @@
+{
+	version = 1;
+	events = {
+		"canonical_to_html_display" = {
+			filters = (
+				//{ uuid = "E32FED7D-CB06-4DE2-BCB7-1504DFFD1666"; }, // Logger
+				{ uuid = "78A877F5-F80C-4127-8380-ACBC7FE09663"; }, // Trim whitespace
+				{ uuid = "DB65F8BE-6DE5-4BD5-AB9A-0A27599BE8C5"; }, // Convert to HTML
+				//{ uuid = "8FCCBEBE-9FE6-4A45-B9AD-79FECFB1C7A9"; }, // Logger
+			);
+		};
+		"canonical_to_html_alternative" = {
+			filters = (
+				//{ uuid = "155E1AC1-E590-4ADE-A4E9-23247FFF628B"; }, // Logger
+				{ uuid = "3723F152-479F-4D7F-8B7C-8677F71C15D7"; }, // Convert to HTML alternative
+				{ uuid = "489FACED-167F-4ED0-A700-5819920F7AF8"; defaultsVariableEnabled = "MmSmartyPantsEnabled"; }, // SmartyPants
+				//{ uuid = "949D4D15-8DE5-4C01-A337-D963D7AD8E78"; }, // Logger
+			);
+		};
+		"sanitize_html" = {
+			filters = (
+				//{ uuid = "8C41BE4B-0C72-40C1-84B4-016D78087B95"; }, // Logger
+				{ uuid = "ECB9E54D-E575-40F6-B54B-1EFBB7D28B37"; }, // tidy to text to html
+				//{ uuid = "EBB6030E-BCBB-41F0-847D-3950398FD5AB"; }, // Logger
+			);
+		};
+		"display_html" = {
+			filters = (
+				//{ uuid = "14905127-19C7-4AB4-B25D-31CC8804EBC3"; }, // Logger
+				{ uuid = "35EFC170-3C8C-4AFD-B853-00D54CED654C"; }, // MyHTMLFilter
+				//{ uuid = "1B9B131A-3153-4BD2-86B5-D40F83878894"; }, // Logger
+			);
+		};
+		"embed_html" = {
+			filters = (
+				//{ uuid = "FAFC7DF5-74BC-4EC1-9380-B66EC17B7F8A"; }, // Logger
+				{ defaultsVariableUUID = "MmBundleCommandForEmbeddingMethod"; },
+				//{ uuid = "AEDAD9FD-9002-4731-B892-7C0D59862E8E"; }, // Logger
+			);
+		};
+		"sanitize_canonical" = {
+			filters = (
+				//{ uuid = "93E01756-BFC7-4E2F-BC4E-54B020E24F93"; }, // Logger
+				{ uuid = "78A877F5-F80C-4127-8380-ACBC7FE09663"; }, // Trim whitespace
+				//{ uuid = "784C81D0-B747-4E58-8FFE-AB907ECE76D1"; }, // Logger
+			);
+		};
+		"html_to_text" = {
+			filters = (
+				//{ uuid = "D351ADD0-370B-4AC0-8949-FCCBEA304B0A"; }, // Logger
+				{ uuid = "FEDE3122-0975-4B47-8788-5FDD7D157F37"; }, // tidy then html2text
+				//{ uuid = "EC0F3EDF-5053-4274-9E6C-CDF8BE67B13D"; }, // Logger
+			);
+		};
+	};
+}
