@@ -53,7 +53,7 @@ Uses [Besticon](https://icons.better-idea.org) for Favicons which I have found w
 
 * Copy ```eventFilters.plist``` from this repo to ```~/Libarary/Application Support/MailMate/Resources```
   * If you want to see how and when events fire, as well as their input and output, you can uncomment the Logger items on each event
-  * Be sure to update the ```D``` variable in ```Bundles/MyHTMLFilter.mmBundle/Support/bin/logger.sh`` 
+  * Be sure to update the ```D``` variable in ```Bundles/MyHTMLFilter.mmBundle/Support/bin/logger.sh``` 
 
 * The custom ```eventFilters.plist``` overrides the display_html event to route through a new ```MyHTMLFilter.mmFilter```
   * Which runs the perl script ```~/Library/Application Support/MailMate/Bundles/MyHTMLFilter.mmBundle/Support/bin/MyHTMLFilter.pl```
